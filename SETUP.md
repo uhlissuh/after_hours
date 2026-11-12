@@ -56,7 +56,26 @@ For local development, run the migration without `--remote`:
 npx wrangler d1 execute after-hours-crafts --local --file=./migrations/0001_product_details.sql
 ```
 
-## 4. Deploy
+## 4. Automatic migrations
+
+`./start-local.sh` automatically runs:
+
+```bash
+npx wrangler d1 migrations apply after-hours-crafts --local
+```
+
+before starting the local Pages server.
+
+Production migrations run through the GitHub Actions workflow at `.github/workflows/migrate-d1.yml`. Add these repository secrets in GitHub under **Settings → Secrets and variables → Actions**:
+
+- `CLOUDFLARE_API_TOKEN`: an API token with **Account → D1 → Edit**
+- `CLOUDFLARE_ACCOUNT_ID`: your Cloudflare account ID
+
+The workflow runs when migration files change on `main`, and can also be started manually from the repository's **Actions** tab. This is safer than running a remote migration on every Pages build: Pages builds should not contain a long-lived Cloudflare API token.
+
+If you already applied `0001_product_details.sql` manually with `d1 execute`, do not run it again. Marking migrations after a manual execution requires either a fresh local database or manually reconciling the D1 migrations table.
+
+## 5. Deploy
 
 Push the project to GitHub. Pages will deploy the `functions/` directory along with the site. Open `/admin/` and choose **Continue with Google**.
 
