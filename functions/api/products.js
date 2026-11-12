@@ -1,4 +1,4 @@
-import { getSession } from "../../_lib/auth.js";
+import { getSession } from "../_lib/auth.js";
 
 export async function onRequestGet({ request, env }) {
   const session = await getSession(request, env);
