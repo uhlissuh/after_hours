@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "wrangler pages dev ."
+    "dev": "wrangler pages dev . --local --port 8788",
+    "start": "npm run dev"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"
