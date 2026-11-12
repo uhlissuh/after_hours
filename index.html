@@ -3,75 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="After Hours Crafts — handmade pieces, sewing lessons, and dance content." />
+    <meta name="description" content="After Hours Crafts — handmade goods, sewing lessons, and dance reels." />
     <title>After Hours Crafts</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="announcement">Free shipping on orders over $75 <span>✦</span> New sewing sessions open for spring</div>
     <header class="site-header">
-      <a class="brand" href="#home" aria-label="After Hours Crafts home">
-        <span class="brand-mark">A<span>✦</span>H</span>
-        <span>AFTER <i>HOURS</i> CRAFTS</span>
-      </a>
-      <button class="menu-toggle" aria-label="Open menu">☰</button>
-      <nav class="main-nav">
-        <a href="#shop">Shop</a>
-        <a href="#lessons">Sewing lessons</a>
-        <a href="#dance">Dance + campaigns</a>
-        <a href="#about">Our story</a>
-      </nav>
-      <div class="header-actions">
-        <button class="icon-btn" id="search-btn" aria-label="Search">⌕</button>
-        <button class="bag-btn" id="bag-btn">Bag <span id="bag-count">0</span></button>
-      </div>
+      <a class="logo" href="/">after hours <span>✳</span></a>
+      <nav><a class="active" href="/">shop</a><a href="/lessons.html">lessons</a><a href="/campaigns.html">dance reels</a></nav>
+      <div class="header-actions"><button class="icon-btn" id="search-btn" aria-label="Search">⌕</button><button class="bag-btn" id="bag-btn">bag <span id="bag-count">0</span></button><button class="menu-toggle" aria-label="Open menu">☰</button></div>
     </header>
-
     <main>
-      <section class="hero" id="home">
-        <div class="hero-copy">
-          <p class="eyebrow">Made slowly. Worn loudly.</p>
-          <h1>Things with a little <em>more</em> rhythm.</h1>
-          <p class="hero-text">Handmade pieces, joyful lessons, and dance-led stories from our little corner of the internet.</p>
-          <div class="hero-buttons"><a href="#shop" class="button button-dark">Explore the shop <span>↗</span></a><a href="#lessons" class="text-link">Book a lesson <span>→</span></a></div>
-        </div>
-        <div class="hero-art">
-          <div class="sun"></div><div class="thread-line"></div>
-          <div class="hero-card card-one"><span>01</span><b>Made<br />by hand</b></div>
-          <div class="hero-card card-two"><span>✦</span><b>Move<br />with joy</b></div>
-          <div class="fabric-shape"></div>
-        </div>
-      </section>
-
-      <section class="ticker"><div>HANDMADE GOODS <span>✦</span> CREATIVE LESSONS <span>✦</span> DANCE STORIES <span>✦</span> HANDMADE GOODS <span>✦</span> CREATIVE LESSONS <span>✦</span></div></section>
-
-      <section class="section shop-section" id="shop">
-        <div class="section-heading"><div><p class="eyebrow">The shop</p><h2>Small batches,<br /><em>big personality.</em></h2></div><a class="text-link" href="#shop">View all pieces <span>→</span></a></div>
-        <div class="filter-row"><button class="filter active" data-filter="all">All pieces</button><button class="filter" data-filter="wear">Wearables</button><button class="filter" data-filter="home">For the home</button><button class="filter" data-filter="gifts">Little gifts</button></div>
-        <div class="product-grid" id="product-grid"></div>
-      </section>
-
-      <section class="lesson-feature" id="lessons">
-        <div class="lesson-image"><div class="lesson-note">LEARN<br />THE<br />RHYTHM <span>✦</span></div></div>
-        <div class="lesson-copy"><p class="eyebrow">Sewing lessons</p><h2>Make something<br /><em>you.</em></h2><p>From your first stitch to your first small collection, our friendly studio sessions are designed to make sewing feel less intimidating and a lot more fun.</p><div class="lesson-meta"><div><strong>01</strong><span>Beginner<br />friendly</span></div><div><strong>02</strong><span>Small groups<br />of 4</span></div><div><strong>03</strong><span>All materials<br />included</span></div></div><button class="button button-light" id="book-lesson">Find your session <span>↗</span></button></div>
-      </section>
-
-      <section class="section calendar-section" id="calendar">
-        <div class="section-heading"><div><p class="eyebrow">Come make with us</p><h2>Pick a date.<br /><em>Bring your ideas.</em></h2></div><p class="section-intro">Choose a session below and we'll save you a spot. We'll email you with the details after booking.</p></div>
-        <div class="booking-layout"><div class="calendar-card"><div class="calendar-top"><button id="prev-month">←</button><h3 id="month-label"></h3><button id="next-month">→</button></div><div class="weekdays"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div><div class="days" id="calendar-days"></div></div><div class="booking-details"><p class="eyebrow">Your session</p><h3 id="selected-date">Select a date</h3><div class="session-option"><span class="radio-dot"></span><div><strong>Open studio · 2 hours</strong><small>Materials included · $65</small></div></div><button class="button button-dark full" id="reserve-btn" disabled>Reserve this date</button><p class="fine-print">No payment today. We'll confirm availability by email.</p></div></div>
-      </section>
-
-      <section class="dance-section" id="dance"><div class="dance-stamp">MOVE<br /><span>WITH</span><br />US <b>✦</b></div><div class="dance-copy"><p class="eyebrow">Dance + brand campaigns</p><h2>We turn a scroll<br />into a <em>feeling.</em></h2><p>Our dance reels are bright, energetic, and built for brands that want to show up with a point of view. Let's make something people want to watch twice.</p><a class="button button-light" href="mailto:hello@afterhourscrafts.co?subject=Brand campaign inquiry">Start a conversation <span>↗</span></a></div><div class="reel-preview"><div class="play">▶</div><span>@afterhourscrafts</span><strong>01 / 03</strong></div></section>
-
-      <section class="section about-section" id="about"><div class="about-photo"><div class="photo-label">EST. 2019<br />ATLANTA, GA</div></div><div class="about-copy"><p class="eyebrow">Our story</p><h2>Craft is our<br /><em>love language.</em></h2><p>After Hours Crafts started with a sewing machine, a stack of bright fabric, and a playlist that wouldn't quit. Today, we make useful, colorful things and invite people into the process.</p><p>Come for the handmade goods. Stay for the good energy.</p><a class="text-link" href="mailto:hello@afterhourscrafts.co">Say hello <span>→</span></a></div></section>
+      <section class="home-intro"><p class="eyebrow">handmade things for everyday life</p><h1>Made after hours,<br /><em>meant for living.</em></h1><p class="intro-copy">Little batches of useful, colorful things — sewn by hand in Atlanta.</p><a class="button button-pink" href="#shop">shop the latest <span>↓</span></a></section>
+      <section class="shop section" id="shop"><div class="section-title"><div><p class="eyebrow">the shop</p><h2>For the home,<br /><em>for the fun of it.</em></h2></div><p class="section-note">Every piece is made in small batches. When it is gone, it may become something new.</p></div><div class="filter-row"><button class="filter active" data-filter="all">everything</button><button class="filter" data-filter="wear">wearables</button><button class="filter" data-filter="home">home</button><button class="filter" data-filter="gifts">little gifts</button></div><div class="product-grid" id="product-grid"></div></section>
+      <section class="split-callout"><div class="callout-art art-pink"><span>✳</span></div><div class="callout-copy"><p class="eyebrow">want to make it yourself?</p><h2>Come sew<br /><em>with us.</em></h2><p>Small-group lessons for beginners, curious people, and anyone who has ever saved a fabric idea to their phone.</p><a class="text-link" href="/lessons.html">see sewing lessons <span>→</span></a></div></section>
+      <section class="about-strip"><p class="eyebrow">a little about us</p><p>After Hours Crafts is a sewing practice, a creative hangout, and a reminder that making things slowly is still a very good idea.</p><a class="text-link" href="mailto:hello@afterhourscrafts.co">say hello <span>→</span></a></section>
     </main>
-
-    <footer><div class="footer-brand"><span class="brand-mark">A<span>✦</span>H</span><p>Made slowly.<br />Worn loudly.</p></div><div class="footer-links"><div><strong>Explore</strong><a href="#shop">Shop</a><a href="#lessons">Sewing lessons</a><a href="#dance">Dance + campaigns</a></div><div><strong>Say hello</strong><a href="mailto:hello@afterhourscrafts.co">Email us</a><a href="#">Instagram ↗</a><a href="#">TikTok ↗</a></div><div><strong>Keep in touch</strong><p>Occasional notes, new drops,<br />and a little inspiration.</p><form id="newsletter"><input type="email" placeholder="Your email address" aria-label="Your email address" required /><button>→</button></form></div></div><div class="footer-bottom"><span>© 2025 After Hours Crafts</span><span>Made with care in Atlanta</span><span>Privacy · Shipping</span><a class="admin-footer-link" href="/admin/">Owner admin</a></div></footer>
-
-    <div class="overlay" id="bag-panel"><div class="side-panel"><button class="close-panel">×</button><p class="eyebrow">Your bag</p><h2 id="bag-title">A little joy<br /><em>coming up.</em></h2><div id="bag-items"></div><div class="bag-total"><span>Total</span><strong id="bag-total">$0</strong></div><button class="button button-dark full" id="checkout-btn">Checkout <span>↗</span></button><p class="fine-print">Checkout is a demo for now — connect Stripe to accept payments.</p></div></div>
+    <footer><div><a class="logo" href="/">after hours <span>✳</span></a><p class="footer-note">made slowly.<br />worn loudly.</p></div><div class="footer-nav"><a href="/">shop</a><a href="/lessons.html">sewing lessons</a><a href="/campaigns.html">dance reels + campaigns</a><a href="mailto:hello@afterhourscrafts.co">hello@afterhourscrafts.co</a></div><div class="footer-bottom"><span>© 2025 after hours crafts</span><a href="/admin/">owner admin</a></div></footer>
+    <div class="overlay" id="bag-panel"><div class="side-panel"><button class="close-panel">×</button><p class="eyebrow">your bag</p><h2>A little joy<br /><em>coming up.</em></h2><div id="bag-items"></div><div class="bag-total"><span>total</span><strong id="bag-total">$0</strong></div><button class="button button-dark full" id="checkout-btn">checkout <span>↗</span></button><p class="fine-print">Checkout is a demo for now — connect Stripe to accept payments.</p></div></div>
     <div class="toast" id="toast"></div>
     <script src="app.js"></script>
   </body>
