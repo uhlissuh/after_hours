@@ -12,5 +12,5 @@ export async function onRequestGet({ request, env }) {
   if (profile.email?.toLowerCase() !== "alissasobo@gmail.com") return new Response("This Google account is not authorized.", { status: 403 });
   const session = crypto.randomUUID();
   await env.DB.prepare("INSERT INTO sessions (token,email,expires_at) VALUES (?,?,?)").bind(session, profile.email, Date.now()+604800000).run();
-  return redirect("/admin/", {"Set-Cookie": cookie("ah_session", session, 604800)});
+  return redirect("/admin/", {"Set-Cookie": cookie("ah_session", session, 604800, url.protocol === "https:")});
 }

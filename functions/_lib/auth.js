@@ -6,8 +6,8 @@ export async function getSession(request, env) {
     .bind(token, Date.now()).first();
 }
 
-export function cookie(name, value, maxAge) {
-  return `${name}=${value}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${maxAge}`;
+export function cookie(name, value, maxAge, secure = false) {
+  return `${name}=${value}; Path=/; HttpOnly;${secure ? " Secure;" : ""} SameSite=Lax; Max-Age=${maxAge}`;
 }
 
 export function redirect(url, headers = {}) {

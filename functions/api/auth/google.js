@@ -12,6 +12,6 @@ export async function onRequestGet({ request, env }) {
     state
   });
   return redirect(`https://accounts.google.com/o/oauth2/v2/auth?${params}`, {
-    "Set-Cookie": cookie("ah_oauth_state", state, 600)
+    "Set-Cookie": cookie("ah_oauth_state", state, 600, url.protocol === "https:")
   });
 }
