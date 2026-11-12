@@ -1,4 +1,4 @@
-const products=[
+let products=[
   {id:1,name:"Patchwork market tote",category:"wear",price:48,stock:8,color:"#ef725f",tilt:"-8deg"},
   {id:2,name:"Sunday table runner",category:"home",price:62,stock:4,color:"#5267d6",tilt:"9deg"},
   {id:3,name:"Pocket-sized pincushion",category:"gifts",price:18,stock:12,color:"#dce64b",tilt:"-3deg"},
@@ -12,6 +12,7 @@ function renderBag(){const count=bag.reduce((a,i)=>a+i.qty,0);$("#bag-count").te
 function openPanel(id){$(id).classList.add("open");document.body.style.overflow="hidden"}function closePanels(){$$(".overlay.open").forEach(x=>x.classList.remove("open"));document.body.style.overflow=""}
 function $$(s){return [...document.querySelectorAll(s)]}
 renderProducts();renderBag();
+fetch("/api/products").then(r=>r.ok?r.json():Promise.reject()).then(data=>{if(Array.isArray(data)&&data.length){products=data;stock=Object.fromEntries(data.map(p=>[p.id,p.stock]));renderProducts()}}).catch(()=>{});
 document.addEventListener("click",e=>{
  const add=e.target.closest("[data-add]");if(add){const p=products.find(x=>x.id==add.dataset.add);if((stock[p.id]||0)<1)return toast("That piece is currently sold out.");const found=bag.find(x=>x.id==p.id);found?found.qty++:bag.push({...p,qty:1});localStorage.setItem("tg-bag",JSON.stringify(bag));renderBag();toast(`${p.name} added to your bag`)}
  const remove=e.target.closest("[data-remove]");if(remove){bag=bag.filter(x=>x.id!=remove.dataset.remove);localStorage.setItem("tg-bag",JSON.stringify(bag));renderBag()}

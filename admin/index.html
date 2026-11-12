@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory · After Hours Crafts</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      body{min-height:100vh}.admin-wrap{max-width:900px;margin:0 auto;padding:70px 8%}.admin-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:60px}.admin-top a{font:11px "DM Mono",monospace;text-transform:uppercase}.admin-card{background:var(--paper);padding:38px;box-shadow:0 8px 30px rgba(36,33,31,.08)}.admin-card h1{font:500 52px/1 "Playfair Display",serif;margin:0 0 12px}.admin-card h1 em{color:var(--coral);font-style:italic}.admin-card p{color:#8e867b;line-height:1.5}.login-box{max-width:420px;margin:60px auto;text-align:center}.login-box .button{margin-top:24px}.inventory-head{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--line);padding-bottom:18px;margin-top:35px}.inventory-row{display:grid;grid-template-columns:1fr 120px 100px;gap:20px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line)}.inventory-row input{width:100%;border:1px solid var(--line);padding:10px;background:var(--cream)}.inventory-row label{font:10px "DM Mono",monospace;text-transform:uppercase;color:#8e867b}.admin-actions{display:flex;justify-content:end;gap:14px;margin-top:28px}.status{font:11px "DM Mono",monospace;color:var(--coral);min-height:18px}@media(max-width:600px){.admin-wrap{padding:40px 6%}.admin-card{padding:24px}.inventory-row{grid-template-columns:1fr 80px}.inventory-row label{grid-column:2}.inventory-row input{grid-row:1;grid-column:2}.admin-card h1{font-size:42px}}
+    </style>
+  </head>
+  <body>
+    <div class="announcement">Private studio · After Hours Crafts</div>
+    <div class="admin-wrap">
+      <div class="admin-top"><a class="brand" href="/"><span class="brand-mark">A<span>✦</span>H</span><span>AFTER <i>HOURS</i> CRAFTS</span></a><a href="/">← Back to shop</a></div>
+      <section class="admin-card" id="app">
+        <div class="login-box" id="login-view"><p class="eyebrow">Owner access</p><h1>Shop<br /><em>inventory.</em></h1><p>Sign in with the approved Google account to manage pieces in the shop.</p><a class="button button-dark" href="/api/auth/google">Continue with Google <span>↗</span></a><p class="fine-print">Only alissasobo@gmail.com is allowed.</p></div>
+        <div id="inventory-view" hidden><p class="eyebrow">Studio dashboard</p><h1>Shop <em>inventory.</em></h1><p>Changes save to the shared shop inventory.</p><div class="inventory-head"><strong>Pieces</strong><span class="status" id="status"></span></div><div id="inventory-list"></div><div class="admin-actions"><button class="button" id="logout">Sign out</button><button class="button button-dark" id="save">Save changes <span>↗</span></button></div></div>
+      </section>
+    </div>
+    <script>
+      const list=document.querySelector("#inventory-list"),status=document.querySelector("#status");
+      async function load(){const r=await fetch("/api/products?admin=1");if(r.status===401)return;const data=await r.json();document.querySelector("#login-view").hidden=true;document.querySelector("#inventory-view").hidden=false;list.innerHTML=data.map(p=>`<div class="inventory-row"><div><strong>${p.name}</strong><br><small>$${p.price} · ${p.category}</small></div><label>Stock<input type="number" min="0" data-id="${p.id}" value="${p.stock}"></label><span></span></div>`).join("")}
+      document.querySelector("#save").onclick=async()=>{status.textContent="Saving…";const products=[...list.querySelectorAll("[data-id]")].map(i=>({id:i.dataset.id,stock:Number(i.value)}));const r=await fetch("/api/products",{method:"PATCH",headers:{"content-type":"application/json"},body:JSON.stringify(products)});status.textContent=r.ok?"Saved":"Could not save";setTimeout(()=>status.textContent="",2500)};
+      document.querySelector("#logout").onclick=async()=>{await fetch("/api/auth/logout",{method:"POST"});location.reload()};load();
+    </script>
+  </body>
+</html>
