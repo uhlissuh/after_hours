@@ -4,4 +4,4 @@ compatibility_date = "2025-01-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "after-hours-crafts"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "769d1545-027a-49f2-8600-f2a89b92b099"
