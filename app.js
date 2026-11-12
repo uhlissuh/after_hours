@@ -22,7 +22,7 @@ document.addEventListener("click",e=>{
  if(e.target.closest(".menu-toggle"))$(".main-nav").classList.toggle("open");
  if(e.target.closest("#book-lesson"))$("#calendar").scrollIntoView({behavior:"smooth"});
 });
-$("#login-form").addEventListener("submit",e=>{e.preventDefault();if($("#login-email").value==="owner@threadandgroove.co"&&$("#login-password").value==="groove"){$("#login-view").hidden=true;$("#inventory-view").hidden=false;renderInventory();toast("Welcome back to the studio")}else toast("That login doesn't match our studio account.")});
+$("#login-form").addEventListener("submit",e=>{e.preventDefault();if($("#login-email").value==="owner@afterhourscrafts.co"&&$("#login-password").value==="groove"){$("#login-view").hidden=true;$("#inventory-view").hidden=false;renderInventory();toast("Welcome back to the studio")}else toast("That login doesn't match our studio account.")});
 function renderInventory(){$("#inventory-list").innerHTML=products.map(p=>`<div class="inventory-row"><span>${p.name}</span><input type="number" min="0" value="${stock[p.id]}" data-stock="${p.id}" /></div>`).join("")}
 $("#save-inventory").addEventListener("click",()=>{$$("[data-stock]").forEach(i=>stock[i.dataset.stock]=Number(i.value));localStorage.setItem("tg-stock",JSON.stringify(stock));renderProducts();toast("Inventory saved")});
 $("#sign-out").addEventListener("click",()=>{$("#login-view").hidden=false;$("#inventory-view").hidden=true;closePanels()});
