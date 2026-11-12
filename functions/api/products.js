@@ -6,7 +6,7 @@ export async function onRequestGet({ request, env }) {
     return new Response("Unauthorized", { status: 401 });
   }
   const result = await env.DB.prepare("SELECT * FROM products ORDER BY id").all();
-  return Response.json(result.results);
+  return Response.json(result.results.map(product => ({ ...product, photos: JSON.parse(product.photos || "[]") })));
 }
 
 export async function onRequestPatch({ request, env }) {
@@ -23,7 +23,7 @@ export async function onRequestPost({ request, env }) {
     return new Response("Product name, category, price, and stock are required", { status: 400 });
   }
   const id = crypto.randomUUID();
-  await env.DB.prepare("INSERT INTO products (id,name,category,price,stock,color,tilt) VALUES (?,?,?,?,?,?,?)")
-    .bind(id, item.name.trim(), item.category, Math.max(0, Number(item.price)), Math.max(0, Number(item.stock)), "#5267d6", "0deg").run();
+  await env.DB.prepare("INSERT INTO products (id,name,category,price,stock,color,tilt,description,photos) VALUES (?,?,?,?,?,?,?,?,?)")
+    .bind(id, item.name.trim(), item.category, Math.max(0, Number(item.price)), Math.max(0, Number(item.stock)), "#5267d6", "0deg", item.description || "", JSON.stringify(Array.isArray(item.photos) ? item.photos : [])).run();
   return Response.json({ id }, { status: 201 });
 }

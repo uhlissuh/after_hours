@@ -5,7 +5,9 @@ CREATE TABLE IF NOT EXISTS products (
   price INTEGER NOT NULL,
   stock INTEGER NOT NULL DEFAULT 0,
   color TEXT NOT NULL,
-  tilt TEXT NOT NULL
+  tilt TEXT NOT NULL,
+  description TEXT NOT NULL DEFAULT '',
+  photos TEXT NOT NULL DEFAULT '[]'
 );
 
 INSERT OR IGNORE INTO products (id,name,category,price,stock,color,tilt) VALUES

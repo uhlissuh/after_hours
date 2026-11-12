@@ -32,7 +32,31 @@ In [Google Cloud Console](https://console.cloud.google.com/):
 
 The code only permits `alissasobo@gmail.com` after Google returns the profile.
 
-## 3. Deploy
+## 3. Create the photo bucket
+
+Product images are stored in Cloudflare R2 and served through the Pages Function at `/api/uploads`.
+
+Create the bucket:
+
+```bash
+npx wrangler r2 bucket create after-hours-crafts-images
+```
+
+The `IMAGES` binding is already declared in `wrangler.toml`. If your Pages project uses dashboard bindings instead, add an R2 bucket binding named `IMAGES` and select `after-hours-crafts-images`.
+
+For an existing D1 database, add the new product fields:
+
+```bash
+npx wrangler d1 execute after-hours-crafts --remote --file=./migrations/0001_product_details.sql
+```
+
+For local development, run the migration without `--remote`:
+
+```bash
+npx wrangler d1 execute after-hours-crafts --local --file=./migrations/0001_product_details.sql
+```
+
+## 4. Deploy
 
 Push the project to GitHub. Pages will deploy the `functions/` directory along with the site. Open `/admin/` and choose **Continue with Google**.
 
