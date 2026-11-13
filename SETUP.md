@@ -46,7 +46,7 @@ The `IMAGES` binding is already declared in `wrangler.toml`. If your Pages proje
 
 ## 4. Database migrations
 
-`./start-local.sh` automatically runs:
+`./scripts/start-local.sh` automatically runs:
 
 ```bash
 npm run migrate:local
@@ -57,7 +57,7 @@ before starting the local Pages server.
 To apply pending migrations to the live Cloudflare database, run:
 
 ```bash
-./migrate-production.sh
+./scripts/migrate-production.sh
 ```
 
 The script uses the Cloudflare account authorized by `npx wrangler login`, shows the pending migrations, and asks for confirmation before changing the live database. No Cloudflare API token or GitHub Actions secret is needed.
