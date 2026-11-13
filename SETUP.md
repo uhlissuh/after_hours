@@ -75,7 +75,30 @@ The workflow runs when migration files change on `main`, and can also be started
 
 If you already applied `0001_product_details.sql` manually with `d1 execute`, do not run it again. Marking migrations after a manual execution requires either a fresh local database or manually reconciling the D1 migrations table.
 
-## 5. Deploy
+## 5. Connect Stripe Checkout
+
+Stripe Checkout accepts payment and collects a US shipping address. Completed purchases are saved in D1 and appear at `/admin/orders.html`.
+
+1. In the [Stripe Dashboard](https://dashboard.stripe.com/), copy the **Secret key** for the mode you want to use. Start with the test-mode key.
+2. In the Cloudflare project settings, add an encrypted environment variable named `STRIPE_SECRET_KEY`.
+3. In Stripe, open **Developers → Webhooks**, add an endpoint, and use:
+
+   `https://YOUR_PROJECT.pages.dev/api/stripe/webhook`
+
+4. Subscribe the endpoint to `checkout.session.completed`.
+5. Copy the webhook endpoint's signing secret and add it to Cloudflare as the encrypted environment variable `STRIPE_WEBHOOK_SECRET`.
+6. Redeploy the Pages project after adding the variables.
+
+For local Stripe testing, put test values in `.dev.vars`:
+
+```text
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+```
+
+Never commit `.dev.vars` or either Stripe secret. Stripe test purchases do not move real money. Switch to the live secret and create a live-mode webhook only when the store is ready to accept real orders.
+
+## 6. Deploy
 
 Push the project to GitHub. Pages will deploy the `functions/` directory along with the site. Open `/admin/` and choose **Continue with Google**.
 

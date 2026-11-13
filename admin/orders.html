@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Purchases · After Hours Crafts</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      body{min-height:100vh}.admin-wrap{max-width:1050px;margin:0 auto;padding:70px 6%}.admin-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:60px}.admin-top a{font:11px "DM Mono",monospace;text-transform:uppercase}.admin-card{background:var(--paper);padding:38px;box-shadow:0 8px 30px rgba(36,33,31,.08)}.admin-card h1{font:500 52px/1 "Playfair Display",serif;margin:0 0 12px}.admin-card h1 em{color:var(--hot);font-style:italic}.admin-card>p{color:var(--muted);line-height:1.5}.login-box{max-width:420px;margin:60px auto;text-align:center}.login-box .button{margin-top:24px}.orders-list{margin-top:36px}.order-card{border-top:1px solid var(--line);padding:28px 0;display:grid;grid-template-columns:minmax(170px,.7fr) minmax(190px,1fr) minmax(230px,1.3fr);gap:35px}.order-label{font:10px "DM Mono",monospace;text-transform:uppercase;color:var(--muted);margin:0 0 8px}.order-number{font:500 22px "Playfair Display",serif;margin:0 0 8px}.order-date,.order-email,.stripe-reference{font-size:12px;color:var(--muted);overflow-wrap:anywhere}.order-address{font-style:normal;line-height:1.55;font-size:13px}.order-items{list-style:none;margin:0;padding:0}.order-items li{display:flex;justify-content:space-between;gap:20px;padding:0 0 9px;font-size:13px}.order-total{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:12px;margin-top:6px;font:12px "DM Mono",monospace}.empty-orders{padding:55px 0;text-align:center;color:var(--muted)}@media(max-width:720px){.admin-wrap{padding:40px 5%}.admin-card{padding:24px}.admin-card h1{font-size:42px}.order-card{grid-template-columns:1fr;gap:22px}}
+    </style>
+  </head>
+  <body>
+    <div class="announcement">Private studio · After Hours Crafts</div>
+    <div class="admin-wrap">
+      <div class="admin-top"><a class="brand" href="/"><span class="brand-mark">☾ <b>✦</b><i>✦</i></span><span>AFTER HOURS CRAFTS</span></a><a href="/admin/">← Inventory</a></div>
+      <section class="admin-card">
+        <div class="login-box" id="login-view"><p class="eyebrow">Owner access</p><h1>Shop<br /><em>purchases.</em></h1><p>Sign in with the approved Google account to view customer orders.</p><a class="button button-dark" href="/api/auth/google">Continue with Google <span>↗</span></a></div>
+        <div id="orders-view" hidden><p class="eyebrow">Studio dashboard</p><h1>Shop <em>purchases.</em></h1><p>Paid Stripe orders and their shipping addresses appear here.</p><div class="orders-list" id="orders-list"></div></div>
+      </section>
+    </div>
+    <script>
+      const list=document.querySelector("#orders-list");
+      const escapeHtml=value=>String(value??"").replace(/[&<>"']/g,character=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[character]));
+      const money=cents=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format((cents||0)/100);
+      function address(order){return [order.address_line1,order.address_line2,`${order.address_city||""}${order.address_city&&order.address_state?", ":""}${order.address_state||""} ${order.address_postal_code||""}`.trim(),order.address_country].filter(Boolean).map(escapeHtml).join("<br>")}
+      async function load(){const response=await fetch("/api/orders");if(response.status===401)return;document.querySelector("#login-view").hidden=true;document.querySelector("#orders-view").hidden=false;if(!response.ok){list.innerHTML='<p class="empty-orders">Purchases could not be loaded.</p>';return}const orders=await response.json();list.innerHTML=orders.length?orders.map((order,index)=>`<article class="order-card"><div><p class="order-label">Order</p><p class="order-number">#${String(orders.length-index).padStart(3,"0")}</p><p class="order-date">${new Date(order.paid_at).toLocaleString()}</p><p class="stripe-reference">${escapeHtml(order.stripe_session_id)}</p></div><div><p class="order-label">Ship to</p><strong>${escapeHtml(order.customer_name)}</strong><p class="order-email">${escapeHtml(order.customer_email)}</p><address class="order-address">${address(order)}</address></div><div><p class="order-label">Items</p><ul class="order-items">${order.items.map(item=>`<li><span>${item.quantity} × ${escapeHtml(item.product_name)}</span><span>${money(item.unit_price_cents*item.quantity)}</span></li>`).join("")}</ul><div class="order-total"><span>Total</span><strong>${money(order.total_cents)}</strong></div></div></article>`).join(""):'<p class="empty-orders">No purchases yet. Paid orders will appear here automatically.</p>'}load();
+    </script>
+  </body>
+</html>

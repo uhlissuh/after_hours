@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product · After Hours Crafts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .product-page{max-width:1100px;margin:auto;padding:80px 8% 110px}.back-link{display:inline-block;margin-bottom:35px}.product-detail{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:8%;align-items:start}.product-gallery-main{position:relative;aspect-ratio:1;overflow:hidden;background:var(--rose)}.product-gallery-main img{width:100%;height:100%;object-fit:cover}.gallery-button{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,253,250,.9)}.gallery-button.prev{left:14px}.gallery-button.next{right:14px}.gallery-thumbs{display:flex;gap:10px;margin-top:12px;overflow:auto}.gallery-thumbs button{flex:0 0 74px;width:74px;height:74px;padding:0;background:var(--rose);opacity:.6}.gallery-thumbs button.active{opacity:1;outline:2px solid var(--hot)}.gallery-thumbs img{width:100%;height:100%;object-fit:cover}.product-copy h1{font:500 clamp(44px,6vw,72px)/.95 "Playfair Display",serif;letter-spacing:-.05em;margin:0 0 20px}.product-price{font:18px "DM Mono",monospace;margin-bottom:30px}.product-long-description{white-space:pre-line;color:var(--muted);line-height:1.7;margin-bottom:30px}.stock-note{font:11px "DM Mono",monospace;text-transform:uppercase;margin-bottom:18px}@media(max-width:720px){.product-page{padding:45px 7% 80px}.product-detail{grid-template-columns:1fr;gap:45px}}
+    </style>
+  </head>
+  <body>
+    <header class="site-header"><a class="logo" href="/"><span class="logo-symbol">☾<b>✦</b><i>✦</i></span><strong>after hours crafts</strong></a><nav><a class="active" href="/">shop</a><a href="/lessons.html">lessons</a><a href="/campaigns.html">dance reels</a></nav><div class="header-actions"><button class="bag-btn" id="bag-btn">bag <span id="bag-count">0</span></button><button class="menu-toggle" aria-label="Open menu">☰</button></div></header>
+    <main class="product-page"><a class="text-link back-link" href="/#shop">← Back to shop</a><div id="product-detail"><p>Loading product…</p></div></main>
+    <footer><div><a class="logo" href="/"><span class="logo-symbol">☾<b>✦</b><i>✦</i></span><strong>after hours crafts</strong></a><p class="footer-note">made slowly.<br />worn loudly.</p></div><div class="footer-nav"><a href="/">shop</a><a href="/lessons.html">sewing lessons</a><a href="/campaigns.html">dance reels + campaigns</a></div><div class="footer-bottom"><span>© 2025 after hours crafts</span><a href="/admin/">owner admin</a></div></footer>
+    <div class="overlay" id="bag-panel"><div class="side-panel"><button class="close-panel">×</button><p class="eyebrow">your bag</p><h2>A little joy<br /><em>coming up.</em></h2><div id="bag-items"></div><div class="bag-total"><span>total</span><strong id="bag-total">$0</strong></div><button class="button button-dark full" id="checkout-btn">checkout <span>↗</span></button></div></div>
+    <div class="toast" id="toast"></div>
+    <script src="/product.js"></script>
+  </body>
+</html>
