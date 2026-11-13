@@ -44,22 +44,23 @@ npx wrangler r2 bucket create after-hours-crafts-images
 
 The `IMAGES` binding is already declared in `wrangler.toml`. If your Pages project uses dashboard bindings instead, add an R2 bucket binding named `IMAGES` and select `after-hours-crafts-images`.
 
-## 4. Automatic migrations
+## 4. Database migrations
 
 `./start-local.sh` automatically runs:
 
 ```bash
-npx wrangler d1 migrations apply after-hours-crafts --local
+npm run migrate:local
 ```
 
 before starting the local Pages server.
 
-Production migrations run through the GitHub Actions workflow at `.github/workflows/migrate-d1.yml`. Add these repository secrets in GitHub under **Settings → Secrets and variables → Actions**:
+To apply pending migrations to the live Cloudflare database, run:
 
-- `CLOUDFLARE_API_TOKEN`: an API token with **Account → D1 → Edit**
-- `CLOUDFLARE_ACCOUNT_ID`: your Cloudflare account ID
+```bash
+./migrate-production.sh
+```
 
-The workflow runs when migration files change on `main`, and can also be started manually from the repository's **Actions** tab. This is safer than running a remote migration on every Pages build: Pages builds should not contain a long-lived Cloudflare API token.
+The script uses the Cloudflare account authorized by `npx wrangler login`, shows the pending migrations, and asks for confirmation before changing the live database. No Cloudflare API token or GitHub Actions secret is needed.
 
 ## 5. Connect Stripe Checkout
 

@@ -9,7 +9,7 @@ if [ ! -d "node_modules" ]; then
 fi
 
 echo "Applying local D1 migrations..."
-CI=true npx wrangler d1 migrations apply after-hours-crafts --local
+CI=true npm run migrate:local
 
 echo "Starting After Hours Crafts at http://localhost:8788"
 exec npm run dev
