@@ -44,18 +44,6 @@ npx wrangler r2 bucket create after-hours-crafts-images
 
 The `IMAGES` binding is already declared in `wrangler.toml`. If your Pages project uses dashboard bindings instead, add an R2 bucket binding named `IMAGES` and select `after-hours-crafts-images`.
 
-For an existing D1 database, add the new product fields:
-
-```bash
-npx wrangler d1 execute after-hours-crafts --remote --file=./migrations/0001_product_details.sql
-```
-
-For local development, run the migration without `--remote`:
-
-```bash
-npx wrangler d1 execute after-hours-crafts --local --file=./migrations/0001_product_details.sql
-```
-
 ## 4. Automatic migrations
 
 `./start-local.sh` automatically runs:
@@ -72,8 +60,6 @@ Production migrations run through the GitHub Actions workflow at `.github/workfl
 - `CLOUDFLARE_ACCOUNT_ID`: your Cloudflare account ID
 
 The workflow runs when migration files change on `main`, and can also be started manually from the repository's **Actions** tab. This is safer than running a remote migration on every Pages build: Pages builds should not contain a long-lived Cloudflare API token.
-
-If you already applied `0001_product_details.sql` manually with `d1 execute`, do not run it again. Marking migrations after a manual execution requires either a fresh local database or manually reconciling the D1 migrations table.
 
 ## 5. Connect Stripe Checkout
 
