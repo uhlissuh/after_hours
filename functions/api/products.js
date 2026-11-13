@@ -48,8 +48,14 @@ export async function onRequestDelete({ request, env }) {
       }
     })
     .filter(key => key?.startsWith("products/"));
-  if (keys.length) await env.IMAGES.delete(keys);
   await env.DB.prepare("DELETE FROM products WHERE id = ?").bind(id).run();
+  if (keys.length && env.IMAGES) {
+    try {
+      await env.IMAGES.delete(keys);
+    } catch (error) {
+      console.error("Product removed, but its R2 photos could not be deleted", error);
+    }
+  }
 
   return Response.json({ ok: true });
 }
